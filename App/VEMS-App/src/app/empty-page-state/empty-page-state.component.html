@@ -4,5 +4,5 @@
       {{firstLineMessage}}<br>{{secondLineMessage}}
     </p>
     
-    <a [href]="linkHref" class="text-primary text-decoration-underline">{{linkText}}</a>
+    <a [href]="linkHref" class="text-primary text-decoration-underline" (click)="triggerOpenFormEvent()">{{linkText}}</a>
   </div>

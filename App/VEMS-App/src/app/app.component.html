@@ -1,4 +1,6 @@
-<app-navbar></app-navbar>
+<app-navbar (openFormEvent)="showForm()"></app-navbar>
+<app-add-vehicle-form [shouldShowForm]="isFormDisplayed" (formClosedEvent)="closeForm()"></app-add-vehicle-form>
+
 <div class="container mt-4">
   @if(true){
 
@@ -7,6 +9,7 @@
     [secondLineMessage]="'Please proceed to add one!'"
     [linkText]="'+ Add Vehicle'"
     [linkHref]="'#'"
+    (showVehicleFormEvent)="showForm()"
   ></app-empty-page-state>
   } @else{
 
