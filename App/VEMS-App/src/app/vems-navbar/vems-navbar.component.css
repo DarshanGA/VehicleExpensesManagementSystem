@@ -1,0 +1,5 @@
+/* Makes sure logo doesn't stretch */
+img {
+    object-fit: contain;
+  }
+  
