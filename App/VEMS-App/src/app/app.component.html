@@ -1,5 +1,8 @@
 <app-navbar (openFormEvent)="showForm()"></app-navbar>
-<app-add-vehicle-form [shouldShowForm]="isFormDisplayed" (formClosedEvent)="closeForm()"></app-add-vehicle-form>
+@if(isFormDisplayed){
+
+  <app-add-vehicle-form (formClosedEvent)="closeForm()"></app-add-vehicle-form>
+}
 
 <div class="container mt-4">
   @if(true){
