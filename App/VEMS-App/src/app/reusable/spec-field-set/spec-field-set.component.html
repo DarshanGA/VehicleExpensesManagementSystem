@@ -1,0 +1,31 @@
+<div class="mb-2 border rounded p-2 bg-light position-relative">
+  <span>
+    <strong>Spec Set - {{specFieldSetIndex}}</strong>
+  </span>
+  <button
+    type="button"
+    class="btn-close position-absolute top-0 end-0 m-2"
+    (click)="removeSpecFieldSetByIndex()"
+  ></button>
+  <!-- Placeholder fields -->
+  <div class="row">
+    <div class="col-md-6 mb-2">
+      
+      <input
+        type="text"
+        id="specNameField_{{specFieldSetIndex}}"
+        class="form-control"
+        placeholder="Spec Name"
+      />
+    </div>
+    <div class="col-md-6 mb-2">
+      
+      <input
+        type="text"
+        id="specValueField_{{specFieldSetIndex}}"
+        class="form-control"
+        placeholder="Its Value"
+      />
+    </div>
+  </div>
+</div>

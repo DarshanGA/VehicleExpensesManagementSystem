@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { fuelTypeDropdownOptions, vehicleTypeDropdownOptions } from '../../../temp_data/fuelTypeDropdown.data';
+import { SpecFieldSetComponent } from "../reusable/spec-field-set/spec-field-set.component";
 
 @Component({
   selector: 'app-add-vehicle-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SpecFieldSetComponent],
   templateUrl: './add-vehicle-form.component.html',
   styleUrl: './add-vehicle-form.component.css'
 })
@@ -18,6 +19,7 @@ export class AddVehicleFormComponent {
   fuelTypeMandatoryWarning = "Fuel Type selection is mandatory";
   vehicleTypesOption = vehicleTypeDropdownOptions;
   fuelTypeOptions = fuelTypeDropdownOptions;
+  specFieldSetList: number[] = [1];
 
   constructor(private fb: FormBuilder){  }
 
@@ -35,5 +37,31 @@ export class AddVehicleFormComponent {
   closeForm(){
 
     this.formClosedEvent.emit();
+  }
+
+  addSepecFieldSet(){
+
+    this.specFieldSetList.push(this.specFieldSetList.length + 1);
+  }
+
+  removeLastSpecFieldSet(){
+
+    if(!(this.specFieldSetList.length - 1 <= 0)){
+
+      this.specFieldSetList.pop();
+    }
+  }
+
+  getSpecificationsCount(){
+
+    return this.specFieldSetList.length;
+  }
+
+  removeSpecificFieldSet(index: number){
+
+    if(!(this.specFieldSetList.length - 1 <= 0)){
+
+      this.specFieldSetList.splice(index - 1, 1);
+    }
   }
 }
