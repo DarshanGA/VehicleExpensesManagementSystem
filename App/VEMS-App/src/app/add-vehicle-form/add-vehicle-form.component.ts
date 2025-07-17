@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { fuelTypeDropdownOptions, vehicleTypeDropdownOptions } from '../../../temp_data/fuelTypeDropdown.data';
 import { SpecFieldSetComponent } from "../reusable/spec-field-set/spec-field-set.component";
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-add-vehicle-form',
@@ -41,7 +42,15 @@ export class AddVehicleFormComponent {
 
   addSepecFieldSet(){
 
-    this.specFieldSetList.push(this.specFieldSetList.length + 1);
+    const lastNumber = this.specFieldSetList.at(-1);
+    if(lastNumber){
+
+      this.specFieldSetList.push(lastNumber + 1);
+    }
+    else{
+
+      this.specFieldSetList.push(1);
+    }
   }
 
   removeLastSpecFieldSet(){
@@ -57,11 +66,11 @@ export class AddVehicleFormComponent {
     return this.specFieldSetList.length;
   }
 
-  removeSpecificFieldSet(index: number){
+  removeSpecificFieldSet(secNumber: number){
 
     if(!(this.specFieldSetList.length - 1 <= 0)){
 
-      this.specFieldSetList.splice(index - 1, 1);
+      this.specFieldSetList.splice(this.specFieldSetList.indexOf(secNumber), 1);
     }
   }
 }

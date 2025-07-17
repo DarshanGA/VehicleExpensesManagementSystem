@@ -8,12 +8,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class SpecFieldSetComponent {
 
-  @Input({required: true}) specFieldSetIndex = 1;
+  @Input({required: true}) specFieldSetIndex = 0;
+  @Input({required: true}) specFieldSetPosition = 1;
   @Output() removeSpecSetEvent = new EventEmitter<number>();
 
   removeSpecFieldSetByIndex(){
 
-    console.log(`From child: Emitting close/remove spec field set - ${this.specFieldSetIndex}`);
     this.removeSpecSetEvent.emit(this.specFieldSetIndex);
   }
 }

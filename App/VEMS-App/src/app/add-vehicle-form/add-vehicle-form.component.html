@@ -147,9 +147,9 @@
               </div>
 
               <!-- List of Dynamic Sections -->
-               @for(i of specFieldSetList ; track $index){
+               @for(i of specFieldSetList ; track i; let j = $index){
 
-                <app-spec-field-set [specFieldSetIndex]="i" (removeSpecSetEvent)="removeSpecificFieldSet($event)"></app-spec-field-set>
+                <app-spec-field-set [specFieldSetIndex]="i" [specFieldSetPosition]="j" (removeSpecSetEvent)="removeSpecificFieldSet($event)"></app-spec-field-set>
                }
             </div>
           </div>
