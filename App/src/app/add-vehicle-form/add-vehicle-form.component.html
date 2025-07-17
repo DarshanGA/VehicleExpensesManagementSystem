@@ -116,50 +116,41 @@
       </div>
 
       <!-- Fifth Row: Accordion for specification info -->
-      <div class="accordion mb-3" id="formAccordion">
+      <div class="accordion mb-3" id="specsAccordion">
         <div class="accordion-item">
-          <h2 class="accordion-header" id="extraSectionHeader">
+          <h2 class="accordion-header" id="specSectionHeader">
             <button
               class="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#extraSection"
+              data-bs-target="#specSection"
               aria-expanded="false"
-              aria-controls="extraSection"
+              aria-controls="specSection"
             >
-              Specifications
+              Specifications ({{getSpecificationsCount()}})
             </button>
           </h2>
           <div
-            id="extraSection"
+            id="specSection"
             class="accordion-collapse collapse"
-            aria-labelledby="extraSectionHeader"
-            data-bs-parent="#formAccordion"
+            aria-labelledby="specSectionHeader"
+            data-bs-parent="#specsAccordion"
           >
             <div class="accordion-body">
-              <!-- 🧪 Placeholder content -->
-              <div class="mb-3">
-                <label for="placeholder1" class="form-label"
-                  >Placeholder Field 1</label
-                >
-                <input
-                  type="text"
-                  id="placeholder1"
-                  class="form-control"
-                  placeholder="Placeholder input"
-                />
+              <!-- Header: Title + Add Button -->
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSepecFieldSet()">
+                  <i class="bi bi-plus-lg"></i> Add
+                </button>
               </div>
-              <div class="mb-3">
-                <label for="placeholder2" class="form-label"
-                  >Placeholder Field 2</label
-                >
-                <input
-                  type="text"
-                  id="placeholder2"
-                  class="form-control"
-                  placeholder="Placeholder input"
-                />
-              </div>
+
+              <!-- List of Dynamic Sections -->
+               @for(i of specFieldSetList ; track i; let j = $index){
+
+                <app-spec-field-set [specFieldSetIndex]="i" [specFieldSetPosition]="j" (removeSpecSetEvent)="removeSpecificFieldSet($event)"></app-spec-field-set>
+               }
             </div>
           </div>
         </div>
