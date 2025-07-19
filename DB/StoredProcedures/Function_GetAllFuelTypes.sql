@@ -1,11 +1,11 @@
 CREATE OR REPLACE FUNCTION get_all_fuel_types()
-RETURNS TABLE(id, name)
+RETURNS TABLE(id INT, name TEXT)
 LANGUAGE plpgsql
 AS $$
 
 BEGIN 
 
 RETURN QUERY
-SELECT id, name FROM vehicle_types;
+SELECT id, name FROM fueld_types;
 END;
 $$;
