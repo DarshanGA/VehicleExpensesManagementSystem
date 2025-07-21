@@ -14,7 +14,7 @@
   <div class="modal-body-scrollable">
     <!-- Form Fields -->
     <form [formGroup]="form">
-      <!--First Dropdown-->
+      <!--Vehicle Type Dropdown-->
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="vehicleType" class="form-label"
@@ -26,9 +26,9 @@
             formControlName="vehicleType"
           >
             <option value="">-- Select a Type --</option>
-            @for(vehicleType of vehicleTypesOption; track vehicleType){
+            @for(vehicleType of vehicleTypesOption; track vehicleType.id){
 
-            <option [value]="vehicleType">{{ vehicleType }}</option>
+            <option [value]="vehicleType.name">{{ vehicleType.name }}</option>
             }
           </select>
           @if(form.get("vehicleType")?.touched &&
@@ -40,16 +40,16 @@
           }
         </div>
 
-        <!--Second Dropdown-->
+        <!--Fuel Types Dropdown-->
         <div class="col-md-6 mb-3">
           <label for="fuelType" class="form-label"
             >Fuel Type <span>*</span></label
           >
           <select id="fuelType" class="form-select" formControlName="fuelType">
             <option value="">-- Select a Type --</option>
-            @for(fuelType of fuelTypeOptions; track fuelType){
+            @for(fuelType of fuelTypeOptions; track fuelType.id){
 
-            <option [value]="fuelType">{{ fuelType }}</option>
+            <option [value]="fuelType.name">{{ fuelType.name }}</option>
             }
           </select>
           @if((form.get("fuelType")?.touched || form.get("fuelType")?.dirty) &&
@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary" (click)="submitVehicleCreationData()">Save</button>
     </form>
   </div>
 </div>

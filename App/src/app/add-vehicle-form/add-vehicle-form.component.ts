@@ -2,7 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { fuelTypeDropdownOptions, vehicleTypeDropdownOptions } from '../../../temp_data/fuelTypeDropdown.data';
 import { SpecFieldSetComponent } from "../reusable/spec-field-set/spec-field-set.component";
-import { lastValueFrom } from 'rxjs';
+import { VCFDropdownDataService } from '../services/vehicle-creation.services';
+import { VehicleTypes } from '../models/vehicle-types.model';
+import { FuelTypes } from '../models/fuel-types.model';
+import { errorContext } from 'rxjs/internal/util/errorContext';
 
 @Component({
   selector: 'app-add-vehicle-form',
@@ -18,13 +21,25 @@ export class AddVehicleFormComponent {
   addVehicleFormTitle = "Add a Vehicle";
   vehicleTypeMandatorWarning = "Vehicle Type selection is mandatory";
   fuelTypeMandatoryWarning = "Fuel Type selection is mandatory";
-  vehicleTypesOption = vehicleTypeDropdownOptions;
-  fuelTypeOptions = fuelTypeDropdownOptions;
+  vehicleTypesOption: VehicleTypes[] = new Array<VehicleTypes>();
+  fuelTypeOptions: FuelTypes[] = new Array<FuelTypes>();
   specFieldSetList: number[] = [1];
 
-  constructor(private fb: FormBuilder){  }
+  constructor(private fb: FormBuilder,
+    private dropdownService: VCFDropdownDataService){  }
 
   ngOnInit(): void{
+
+    this.dropdownService.getAllVehicleTypes().subscribe({
+
+      next: (data) => { this.vehicleTypesOption = data;},
+      error: (er) => { console.warn("Failed to load the vehicle type dropdown data from API", er);}
+    });
+
+    this.dropdownService.getAllFuelTypes().subscribe({
+      next: (response) => {this.fuelTypeOptions = response;},
+      error: (er) => { console.warn("Something went worng while getting fuel types!", er);}
+    });
 
     this.form = this.fb.group({
 
@@ -71,6 +86,18 @@ export class AddVehicleFormComponent {
     if(!(this.specFieldSetList.length - 1 <= 0)){
 
       this.specFieldSetList.splice(this.specFieldSetList.indexOf(secNumber), 1);
+    }
+  }
+
+  submitVehicleCreationData(){
+
+    if(this.form.valid){
+
+      console.log(this.form.value);
+    }
+    else{
+
+      this.form.markAllAsTouched();
     }
   }
 }
