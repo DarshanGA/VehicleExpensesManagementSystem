@@ -2,21 +2,21 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Endpoints } from "../api.endpoints";
-import { VehicleTypes } from "../models/vehicle-types.model";
-import { FuelTypes } from "../models/fuel-types.model";
+import { VehicleType } from "../models/vehicle-type.model";
+import { FuelType } from "../models/fuel-type.model";
 
 @Injectable({providedIn: "root"})
 export class VCFDropdownDataService{
 
     constructor(private http: HttpClient){}
 
-    getAllVehicleTypes(): Observable<VehicleTypes[]>{
+    getAllVehicleTypes(): Observable<VehicleType[]>{
 
-        return this.http.get<VehicleTypes[]>(Endpoints.getVehicleTypesEndpoint());
+        return this.http.get<VehicleType[]>(Endpoints.getVehicleTypesEndpoint());
     }
 
-    getAllFuelTypes(): Observable<FuelTypes[]>{
+    getAllFuelTypes(): Observable<FuelType[]>{
 
-        return this.http.get<FuelTypes[]>(Endpoints.getFuelTypesEndpoint());
+        return this.http.get<FuelType[]>(Endpoints.getFuelTypesEndpoint());
     }
 }

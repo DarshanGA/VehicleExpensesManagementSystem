@@ -1,14 +1,16 @@
 <app-navbar (openFormEvent)="showForm()"></app-navbar>
 @if(isFormDisplayed){
 
-  <app-add-vehicle-form (formClosedEvent)="closeForm()"></app-add-vehicle-form>
+<app-add-vehicle-form (formClosedEvent)="closeForm()"></app-add-vehicle-form>
 }
 
 <div class="container mt-4">
   @if(true){
 
   <app-empty-page-state
-    [firstLineMessage]="'We don\'t have any vehicle data in our system to show.'"
+    [firstLineMessage]="
+      'We don\'t have any vehicle data in our system to show.'
+    "
     [secondLineMessage]="'Please proceed to add one!'"
     [linkText]="'+ Add Vehicle'"
     [linkHref]="'#'"
@@ -16,6 +18,26 @@
   ></app-empty-page-state>
   } @else{
 
-  <p>Loading your vehicles, please wait...</p>
+  <div class="row row-cols-3 row-cols-md-3 g-4">
+    @for(path of defaultImageForCards; track $index){
+
+      <div class="col mt-2">
+        <div class="card" style="width: 18rem">
+          <img
+            src="../assets/defaults/{{ path }}"
+            class="card-img-top"
+            alt="{{path}}"
+          />
+          <div class="card-body">
+            <a class="card-title">Card title</a>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card’s content.
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
   }
 </div>
