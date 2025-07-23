@@ -16,7 +16,7 @@
     <form [formGroup]="form">
       <!--Vehicle Type Dropdown-->
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-2">
           <label for="vehicleType" class="form-label"
             >Vehicle Type <span>*</span></label
           >
@@ -41,7 +41,7 @@
         </div>
 
         <!--Fuel Types Dropdown-->
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-2">
           <label for="fuelType" class="form-label"
             >Fuel Type <span>*</span></label
           >
@@ -64,7 +64,7 @@
 
       <!--Vehicle Name Input field-->
       <div class="row">
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-2">
           <label for="vehicleName" class="form-label"
             >Vehicle Name <span>*</span></label
           >
@@ -87,7 +87,7 @@
 
       <!--Its Description field-->
       <div class="row">
-        <div class="col-12 mb-4">
+        <div class="col-12 mb-2">
           <label for="description" class="form-label">Description</label>
           <textarea
             id="description"
@@ -107,16 +107,54 @@
         </div>
       </div>
 
-      <!--Image upload area-->
-      <div class="row">
-        <div class="col-12 mb-3">
-          <label for="image" class="form-label">Upload Image</label>
-          <input type="file" class="form-control" id="image" accept="image/*" />
-        </div>
-      </div>
-
       <!-- Fifth Row: Accordion for specification info -->
-      <div class="accordion mb-3" id="specsAccordion">
+      <div class="accordion mb-2" id="vehicleAdditionFormAcc">
+        <!--Image upload section Accordian-->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseImageSelectionAccBody"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Select a Vehicle Cover Image
+            </button>
+          </h2>
+          <div
+            id="collapseImageSelectionAccBody"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#vehicleAdditionFormAcc"
+          >
+            <div class="accordion-body">
+              @if(showPreview){
+
+              <!--Image Preview-->
+              <div class="mt-1 d-flex justify-content-center position-relative">
+                <img
+                  [src]="previewUrl"
+                  alt="Image Preview"
+                  class="img-thumbnail"
+                  [width]="previewDim"
+                />
+                <button
+                  type="button"
+                  class="btn-close position-absolute top-0 end-0 m-2"
+                  style="background-color: whitesmoke; border: solid;"
+                  (click)="clearImageSelection()"
+                ></button>
+              </div>
+              } @else {
+
+              <app-image-selection (croppingDoneEvent)="closeCropper($event)"></app-image-selection>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!--Specification section accordian-->
         <div class="accordion-item">
           <h2 class="accordion-header" id="specSectionHeader">
             <button
@@ -127,36 +165,50 @@
               aria-expanded="false"
               aria-controls="specSection"
             >
-              Specifications ({{getSpecificationsCount()}})
+              Specifications ({{ getSpecificationsCount() }})
             </button>
           </h2>
           <div
             id="specSection"
             class="accordion-collapse collapse"
             aria-labelledby="specSectionHeader"
-            data-bs-parent="#specsAccordion"
+            data-bs-parent="#vehicleAdditionFormAcc"
           >
             <div class="accordion-body">
               <!-- Header: Title + Add Button -->
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSepecFieldSet()">
+              <div class="d-flex justify-content-end align-items-center mb-3">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="addSepecFieldSet()"
+                >
                   <i class="bi bi-plus-lg"></i> Add
                 </button>
               </div>
 
               <!-- List of Dynamic Sections -->
-               @for(i of specFieldSetList ; track i; let j = $index){
+              @for(i of specFieldSetList ; track i; let j = $index){
 
-                <app-spec-field-set [specFieldSetIndex]="i" [specFieldSetPosition]="j" (removeSpecSetEvent)="removeSpecificFieldSet($event)"></app-spec-field-set>
-               }
+              <app-spec-field-set
+                [specFieldSetIndex]="i"
+                [specFieldSetPosition]="j"
+                (removeSpecSetEvent)="removeSpecificFieldSet($event)"
+              ></app-spec-field-set>
+              }
             </div>
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary" (click)="submitVehicleCreationData()">Save</button>
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="submitVehicleCreationData()"
+        >
+          Save
+        </button>
+      </div>
     </form>
   </div>
 </div>
